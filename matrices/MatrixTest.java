@@ -4,21 +4,16 @@ import java.util.Arrays;
 
 public class MatrixTest {
 	@Test
-
-	public void assignElements() {
+	public void shouldInsertTheElementsInToAMatrix() {
 	 	Matrix matrix = new Matrix(2,3);
 	 	int[] allElements = {1,2,3,4,5,6};
 	 	matrix.insertData(allElements);
-	 	int[][] result = matrix.populateData();
-	 	assertEquals(result[0][0], 1);
-	 	assertEquals(result[0][1], 2);
-	 	assertEquals(result[0][2], 3);
-	 	assertEquals(result[1][0], 4);
-	 	assertEquals(result[1][1], 5);
-	 	assertEquals(result[1][2], 6);
+	 	int[] result = {{1,2,3},
+	 					  {4,5,6}};
+	 	assertTrue(matrix.isEqual(result));
 	}
 	@Test
-	public void addMatrices() {
+	public void shouldAddAMartixWithOtherMatrixOfSameSize() {
 	 	Matrix matrix1 = new Matrix(2,3);
 	 	Matrix matrix2 = new Matrix(2,3);
 	 	int[] matrices1 = {1,2,3,4,5,6};

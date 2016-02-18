@@ -1,7 +1,8 @@
 class Matrix {
-	int row;
-	int column;
-	int[][] elements;
+	private int row;
+	private int column;
+	private int[][] elements;
+	
 	public Matrix(int rows, int columns) {
 		row = rows;
 		column = columns;
@@ -31,6 +32,16 @@ class Matrix {
 
 	public int[][] populateData() {
 		return elements;
+	}
+
+	public boolean isEqual(Matrix matrix1) {
+		for (int i=0; i<this.row; i++) {
+			for (int j=0; j<this.column; j++) {
+				if(matrix1[i][j] != this.elements[i][j])
+					return false;
+			}
+		}
+		return true;
 	}
 }
 
