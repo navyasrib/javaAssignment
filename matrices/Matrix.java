@@ -19,14 +19,42 @@ class Matrix {
 		}
 	}
 
-	public int[][] add(Matrix operandMatrix) {
+	public boolean isSameOrder(Matrix operandMatrix){
+		return (this.row == operandMatrix.row) && (this.column == operandMatrix.column);
+	}
+
+	public Matrix add(Matrix operandMatrix) {
 		int[][] operands = operandMatrix.populateData();
-		int[][] result = new int[this.row][this.column];
+		Matrix result = new Matrix(this.row, this.column);
+		int[] sum = new int[this.row * this.column];
+		int count = 0;
 		for (int i=0; i<this.row; i++) {
 			for (int j=0; j<this.column; j++) {
-				result[i][j] = this.elements[i][j] + operands[i][j];
+				sum[count] = this.elements[i][j] + operands[i][j];
+				count++;
 			}
 		}
+		result.insertData(sum);
+		return result;
+	}
+
+	public Matrix multiply(Matrix operandMatrix) {
+		int sum = 0;
+		int[][] operands = operandMatrix.populateData();
+		Matrix result = new Matrix(this.row, this.row);
+		int[] data = new int[this.row * this.row];
+		int count = 0;
+		for (int i=0; i<this.row; i++) {
+			for (int j=0; j<this.row; j++) {
+				for (int k=0; k<this.column ;k++ ) {
+					sum += this.elements[i][k] * operands[k][j];
+				}
+				data[count] = sum;
+				count++;
+				sum = 0;
+			}
+		}
+		result.insertData(data);
 		return result;
 	}
 
@@ -34,7 +62,7 @@ class Matrix {
 		return elements;
 	}
 
-	public boolean isEqual(Matrix matrix1) {
+	public boolean isEqual(int[][] matrix1) {
 		for (int i=0; i<this.row; i++) {
 			for (int j=0; j<this.column; j++) {
 				if(matrix1[i][j] != this.elements[i][j])
