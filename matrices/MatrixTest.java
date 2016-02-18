@@ -33,4 +33,18 @@ public class MatrixTest {
 	 	assertEquals(result[1][1], 10);
 	 	assertEquals(result[1][2], 12);
 	}
+	@Test
+	public void multiplyMatrices() {
+	 	Matrix matrix1 = new Matrix(2,3);
+	 	Matrix matrix2 = new Matrix(3,2);
+	 	int[] matrices1 = {1,2,3,4,5,6};
+	 	int[] matrices2 = {1,2,3,4,5,6};
+	 	matrix1.insertData(matrices1);
+	 	matrix2.insertData(matrices2);
+	 	int[][] result = matrix1.multiply(matrix2);
+	 	assertEquals(result[0][0], 22);
+	 	assertEquals(result[0][1], 28);
+	 	assertEquals(result[1][0], 49);
+	 	assertEquals(result[1][1], 64);
+	}
 }

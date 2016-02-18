@@ -18,12 +18,34 @@ class Matrix {
 		}
 	}
 
+	public boolean isSameOrder(Matrix operandMatrix){
+		return (this.row == operandMatrix.row) && (this.column == operandMatrix.column);
+	}
+
 	public int[][] add(Matrix operandMatrix) {
+		if(isSameOrder){
+			int[][] operands = operandMatrix.populateData();
+			int[][] result = new int[this.row][this.column];
+			for (int i=0; i<this.row; i++) {
+				for (int j=0; j<this.column; j++) {
+					result[i][j] = this.elements[i][j] + operands[i][j];
+				}
+			}
+			return result;
+		}	
+	}
+
+	public int[][] multiply(Matrix operandMatrix) {
+		int sum = 0;
 		int[][] operands = operandMatrix.populateData();
-		int[][] result = new int[this.row][this.column];
+		int[][] result = new int[this.row][this.row];
 		for (int i=0; i<this.row; i++) {
-			for (int j=0; j<this.column; j++) {
-				result[i][j] = this.elements[i][j] + operands[i][j];
+			for (int j=0; j<this.row; j++) {
+				for (int k=0; k<this.column ;k++ ) {
+					sum += this.elements[i][k] * operands[k][j];
+				}
+				result[i][j] = sum;
+				sum = 0;
 			}
 		}
 		return result;
