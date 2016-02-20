@@ -58,27 +58,67 @@ class Matrix {
 		return result;
 	}
 
-	public int determinant() {
-		int det = 0;
-		if(this.row == 1 && this.column == 1)
-			det = this.elements[0][0];
-		if(this.column == 2 && this.row == 2)
-			det = (this.elements[0][0]*this.elements[1][1]) - (this.elements[1][0]*this.elements[0][1]);
-		return det;
+	public Matrix coefficient(Matrix sample, int position) {
+		int rows = sample.row-1;
+		int columns = sample.column-1;
+		Matrix coMatrix = new Matrix(rows, columns);
+		int[] data = new int[rows * columns];
+		int count = 0;
+		for (int i=1; i<sample.row; i++) {
+			for (int j=0; j<sample.column; j++) {
+				if(j!=position){
+					data[count] = sample.elements[i][j];
+					count++;
+				}
+			}
+		}
+		coMatrix.insertData(data);
+		return coMatrix;
 	}
 
+	private int getSign(int index) {
+		return (index%2 == 0)? 1 : -1;
+	}
+	public int determinant() {
+		int det = 0, sign;
+		Matrix coMatrix;
+		if(this.row == 1 && this.column == 1)
+			return this.elements[0][0];
+		if(this.column == 2 && this.row == 2)
+			return (this.elements[0][0]*this.elements[1][1]) - (this.elements[1][0]*this.elements[0][1]);
+		for (int i=0; i<this.row; i++) {
+			sign = this.getSign(i);
+			coMatrix = this.coefficient(this, i);
+			det += sign * coMatrix.determinant();
+		}
+		return det;
+	}
 
 	public boolean equals(Object other){
 		if(!(other instanceof Matrix)) return false;
 		Matrix matrix = (Matrix) other;
-		if(this.row!=matrix.row || this.column!=matrix.column) return false;
+		return this.equals(matrix);
+	}
+
+	public boolean equals(Matrix other){
+		if(this.row!=other.row || this.column!=other.column) return false;
 		for (int i=0; i<this.row; i++) {
 			for (int j=0; j<this.column; j++) {
-				if(matrix.elements[i][j] != this.elements[i][j])
+				if(other.elements[i][j] != this.elements[i][j])
 					return false;
 			}
 		}
 		return true;
+	}
+
+	public String toString() {
+		String data = "";
+		for (int i=0; i<this.row; i++) {
+			for (int j=0; j<this.column; j++) {
+				data += this.elements[i][j];
+			}
+		}
+		return data;
 	}
 }
 

@@ -56,4 +56,54 @@ public class MatrixTest {
 		matrix1.insertData(matrices1);
 		assertEquals(matrix1.determinant(),-2);
 	}
+	@Test
+	public void should_give_coefficient_matrix_of_first_element_in_3_by_3_matrix(){
+		Matrix matrix1 = new Matrix(3,3);
+		int[] matrices1 = {1,2,1,2,1,2,1,1,1};
+		matrix1.insertData(matrices1);
+		Matrix matrix2 = new Matrix(2,2);
+		int[] matrices2 = {1,2,1,1};
+		matrix2.insertData(matrices2);
+		int index = 0;
+		Matrix coMatrix = matrix1.coefficient(matrix1,index);
+		assertTrue(coMatrix.equals(matrix2));
+	}
+	@Test
+	public void should_give_coefficient_matrix_of_second_element_in_3_by_3_matrix(){
+		Matrix matrix1 = new Matrix(3,3);
+		int[] matrices1 = {1,2,1,2,1,2,1,1,1};
+		matrix1.insertData(matrices1);
+		Matrix matrix2 = new Matrix(2,2);
+		int[] matrices2 = {2,2,1,1};
+		matrix2.insertData(matrices2);
+		int index = 1;
+		Matrix coMatrix = matrix1.coefficient(matrix1,index);
+		assertEquals(matrix2,coMatrix);
+	}
+	@Test
+	public void should_give_coefficient_matrix_of_third_element_in_3_by_3_matrix(){
+		Matrix matrix1 = new Matrix(3,3);
+		int[] matrices1 = {1,2,1,2,1,2,1,1,1};
+		matrix1.insertData(matrices1);
+		Matrix matrix2 = new Matrix(2,2);
+		int[] matrices2 = {2,1,1,1};
+		matrix2.insertData(matrices2);
+		int index = 2;
+		Matrix coMatrix = matrix1.coefficient(matrix1,index);
+		assertEquals(matrix2,coMatrix);
+	}
+	@Test
+	public void should_give_determinant_of_3_by_3_matrix(){
+		Matrix matrix1 = new Matrix(3,3);
+		int[] matrices1 = {1,2,1,2,1,2,1,1,1};
+		matrix1.insertData(matrices1);
+		assertEquals(0, matrix1.determinant());
+	}
+	// @Test
+	// public void should_give_determinant_of_4_by_4_matrix(){
+	// 	Matrix matrix1 = new Matrix(4,4);
+	// 	int[] matrices1 = {1,2,1,2,1,2,1,1,1,6,5,4,3,2,1,2};
+	// 	matrix1.insertData(matrices1);
+	// 	assertEquals(-8, matrix1.determinant());
+	// }
 }
